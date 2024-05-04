@@ -1,0 +1,356 @@
+<!-- Специјални "TicTacToe" за професора Семира -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		/* Nulling */
+		* {
+		  padding: 0;
+		  margin: 0;
+		  border: 0;
+		}
+		
+		*, *:before, *:after {
+		  -webkit-box-sizing: border-box;
+		  box-sizing: border-box;
+		}
+		
+		:focus, :active {
+		  outline: none;
+		}
+		
+		a:focus, a:active {
+		  outline: none;
+		}
+		
+		nav, footer, header, aside {
+		  display: block;
+		}
+		
+		html, body {
+		  height: 100%;
+		  width: 100%;
+		  font-size: 100%;
+		  line-height: 1;
+		  font-size: 14px;
+		  -ms-text-size-adjust: 100%;
+		  -moz-text-size-adjust: 100%;
+		  -webkit-text-size-adjust: 100%;
+		}
+		
+		input, button, textarea {
+		  font-family: inherit;
+		}
+		
+		input::-ms-clear {
+		  display: none;
+		}
+		
+		button {
+		  cursor: pointer;
+		}
+		
+		button::-moz-focus-inner {
+		  padding: 0;
+		  border: 0;
+		}
+		
+		a, a:visited {
+		  text-decoration: none;
+		}
+		
+		a:hover {
+		  text-decoration: none;
+		}
+		
+		ul li {
+		  list-style: none;
+		}
+		
+		img {
+		  vertical-align: top;
+		}
+		
+		h1, h2, h3, h4, h5, h6 {
+		  font-size: inherit;
+		  font-weight: 400;
+		}
+		
+		/*--------------------*/
+
+
+		body {
+	    	background-color: #f0f0f0;
+		}
+		
+		.wrapper {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    height: 100vh;
+		    margin: 0;
+		    background-color: #f0f0f0;
+		}
+	
+		.header {
+		    width: 100%;
+		    height: auto;
+		    font-size: 80px;
+		    text-align: center;
+		    padding-top: 40px;
+		    padding-bottom: 40px;
+		    position: absolute;
+		}
+	
+		.game-board {
+		    display: grid;
+		    grid-template-columns: repeat(3, 100px);
+		    grid-template-rows: repeat(3, 100px);
+		    gap: 10px;
+		}
+	
+		.cell {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    background-color: white;
+		    border: 2px solid #333;
+		    font-size: 2em;
+		    cursor: pointer;
+		}
+	
+		.cell:hover {
+		    background-color: #e9e9e9;
+		}
+	</style>
+
+	<title> TicTacToe </title>
+</head>
+<body>
+	<div class="header" id="header"> <h1> The X turn </h1> </div>
+	<div class="wrapper">
+		<div class="game-board">
+			<div class="cell" id="cell1"></div>
+		    <div class="cell" id="cell2"></div>
+		    <div class="cell" id="cell3"></div>
+		    <div class="cell" id="cell4"></div>
+		    <div class="cell" id="cell5"></div>
+		    <div class="cell" id="cell6"></div>
+		    <div class="cell" id="cell7"></div>
+		    <div class="cell" id="cell8"></div>
+		    <div class="cell" id="cell9"></div>
+		</div>
+	</div>
+	
+	
+	<script>
+		const cells = document.querySelectorAll(".cell"); // Linking HTML form fields with a JS file.
+		let cellsValues = new Array(); // Creating an array for field matrices.
+		let row = new Array(); // Auxiliary array - row for forming a matrix.
+
+		// Creating a matrix of fields.
+		for (let i = 0; i < cells.length; i++) {
+		    row.push(cells[i]);
+		    if (row.length % 3 === 0) {
+		        cellsValues.push(row);
+		        row = [];
+		    };
+		};
+
+		// Informational function for output the cells values "X" or "O"
+		function get_cells_values() {
+		    for (let i of cellsValues) {
+		        for (let j of i) {
+		            console.log(j.innerText); 
+		        };
+		    };
+		};
+
+
+		// The winning sequences.
+		const crosses_win_string = "XXX";
+		const noughts_win_string = "OOO";
+
+		// Checking the winning sequence.
+		function check_win(result) {
+		    // Checking for a win for "X".
+		    if (result == "XXX") {
+		        console.log("!!!The crosses win!!!");
+		        turn_info.innerText = "!!!The crosses win!!!"
+		        result = "";
+		        return 0;
+		    };
+		    
+		    // Checking for a win for "O".
+		    if (result === "OOO") {
+		        console.log("!!!The noughts win!!!");
+		        turn_info.innerText = "!!!The noughts win!!!"
+		        result = "";
+		        return 0;
+		    };
+		}
+
+
+		// Block of functions for checking the game field.
+		// Checking values filled in a row.
+		function check_row() {
+		    let checkRow = new String();
+		    for (let i of cellsValues) {
+		        for (let j of i) {
+		            checkRow = checkRow + j.innerText;
+		        };
+
+		        check_win(checkRow); // Checking for a winning combination.
+
+		        checkRow = "";
+		    }; 
+		};
+
+		// Checking values filled in a column.
+		function check_column() {
+		    let checkColumnString = new String()
+		    for (let i = 0; i < cellsValues.length; i++) {
+		        for (let j = 0; j < cellsValues.length; j++) {
+		            checkColumnString = checkColumnString + cellsValues[j][i].innerText;
+		        };
+		        
+		        check_win(checkColumnString) // Checking for a winning combination.
+		        
+		        checkColumnString = "";
+		    };
+		};
+
+		// Checking the values filled along the diagonals.
+		function check_diagonal() {
+		    let checkDiagonalString = new String();
+		    for (let i = 0; i < cellsValues.length; i++) {
+		        checkDiagonalString = checkDiagonalString + cellsValues[i][i].innerText;
+		    };
+
+		    check_win(checkDiagonalString);
+		    checkDiagonalString = "";
+
+		    for (let i = 0; i < cellsValues.length; i++) {
+		        checkDiagonalString = checkDiagonalString + cellsValues[i][cellsValues.length - 1 - i].innerText;
+		    };
+
+		    check_win(checkDiagonalString); // Checking for a winning combination.
+		    checkDiagonalString = "";
+		};
+
+
+		// The Main function of determining the move of player "X" or "O". 
+		function check_status() {
+		    check_row();
+		    check_column();
+		    check_diagonal();
+		};
+
+		// Auxiliary secondary function "For future developers".
+		function check_cells() {
+		    let situation = new Array();
+		    console.log(cellsValues);
+		};
+
+		// The "Turn block"
+		let turn = "X"; // The first turn (Usually it's the "X") 
+		let turn_info = document.getElementById("header").querySelector("h1"); // The first turn (Usually it's the "X") 
+
+		// The switching turns function.
+		function turn_setter() {
+		    if (this.textContent === "") {
+		        this.textContent = turn;
+		        turn = turn === "X" ? "O" : "X"; // Switching the turn.
+		        turn_info.innerText = `The ${turn} turn!`; // Indicating whose turn it is.
+		    };
+
+		    check_status(); // Checking the state of the game field.
+		};
+
+		// Setting up an event - adding functions for the game field.
+		cells.forEach(cell => {
+		    cell.addEventListener("click", turn_setter);
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Ајмо професоре мајсторе најјачи!1!!!11!!1 -->
