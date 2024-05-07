@@ -26,6 +26,30 @@ function get_cells_values() {
 const crosses_win_string = "XXX";
 const noughts_win_string = "OOO";
 
+function asign_finish() {
+    cells.forEach(cell => {
+        cell.removeEventListener("click", turn_setter);
+        cell.style.backgroundColor = "#D3D3D3";
+    });
+};
+
+// Checking the draw sequence
+function check_draw() {
+    let allFilled = true; // Assume all cells are filled
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].innerText === "") {
+            allFilled = false; // Found an empty cell, not all cells are filled
+            break;
+        };
+    };
+    if (allFilled) {
+        console.log("!!! Draw !!!");
+        turn_info.innerText = "!!! Draw !!!"
+        asign_finish();
+    };
+};
+
+
 // Checking the winning sequence.
 function check_win(result) {
 
@@ -34,10 +58,7 @@ function check_win(result) {
         console.log("!!!The crosses win!!!");
         turn_info.innerText = "!!!The crosses win!!!"
         result = "";
-        cells.forEach(cell => {
-            cell.removeEventListener("click", turn_setter);
-            cell.style.backgroundColor = "#D3D3D3";
-        });
+        asign_finish();
     };
     
     // Checking for a win for "O".
@@ -45,10 +66,7 @@ function check_win(result) {
         console.log("!!!The noughts win!!!");
         turn_info.innerText = "!!!The noughts win!!!"
         result = "";
-        cells.forEach(cell => {
-            cell.removeEventListener("click", turn_setter);
-            cell.style.backgroundColor = "#D3D3D3";
-        });
+        asign_finish();
     };
 };
 
@@ -106,6 +124,7 @@ function check_status() {
     check_row();
     check_column();
     check_diagonal();
+    check_draw();
 };
 
 // Auxiliary secondary function "For future developers".
