@@ -1,3 +1,4 @@
+/* Container styling */
 .container {
 	display: flex;
 	justify-content: center;
@@ -5,6 +6,7 @@
 	align-items: center;
 }
 
+/* Card styling to hold the image */
 .card {
 	max-width: 1000px;
 	max-height: 1000px;
@@ -14,11 +16,16 @@
 	box-shadow: 5px 5px 15px grey;
 }
 
+/* Image styling to constrain size and maintain aspect ratio */
 .img_cat {
+	max-width: 500px; /* Set maximum width */
+	max-height: 500px; /* Set maximum height */
 	width: 100%;
-	height: 100%;
+	height: auto;
+	object-fit: cover; /* Ensure the image covers within the area */
 }
 
+/* Button styling with hover effect */
 .btn {
 	padding: 8px;
 	transition: background-color 0.5s ease, transform 0.5s ease;
@@ -26,5 +33,5 @@
 
 .btn:hover {
     background-color: gray;
-    transform: scale(1.1); /* Увеличение кнопки */
+    transform: scale(1.1); /* Enlarge the button (Just a decoration) */
 }
