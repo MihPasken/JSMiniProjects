@@ -1,0 +1,86 @@
+/* Container for the movie */
+.movie {
+    width: 240px;
+    margin: 10px;
+    position: relative;
+}
+
+/* Inner container for the movie cover */
+.movie__cover-inner {
+    position: relative;
+    height: 360px;
+}
+
+/* Styling for the movie cover image */
+.movie__cover {
+    max-width: 100%;
+    height: 100%;
+}
+
+/* Darkened overlay on the movie cover */
+.movie__cover-darkened {
+    background-color: #000;
+    opacity: 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Hover effect for the darkened overlay */
+.movie__cover-darkened:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+/* Container for the movie information */
+.movie__info {
+    padding: 10px 0;
+}
+
+/* Styling for the movie title */
+.movie__title {
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Styling for the movie category */
+.movie__category {
+    font-size: 14px;
+    color: #ffd80e;
+}
+
+/* Base styling for the movie rating badge */
+.movie__rating {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a191f;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Green border for high ratings */
+.movie__rating-green {
+    border: 1px solid green;
+}
+
+/* Yellow border for medium ratings */
+.movie__rating-yellow {
+    border: 1px solid yellow;
+}
+
+/* Red border for low ratings */
+.movie__rating-red {
+    border: 1px solid red;
+}
